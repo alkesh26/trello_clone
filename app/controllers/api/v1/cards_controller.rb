@@ -1,21 +1,25 @@
+# frozen_string_literal: true
+
 module Api
   module V1
+    # API controller for managing Trello cards
+    #
+    # This controller provides RESTful endpoints for creating, reading, updating, and deleting
+    # Trello cards. Cards are the fundamental units of work in a Trello board, representing
+    # individual tasks, ideas, or items that can be moved between lists.
     class CardsController < ApplicationController
-      before_action :set_card, only: %i[ show update destroy ]
+      before_action :set_card, only: %i[show update destroy]
 
-      # GET /cards
       def index
         @cards = Card.order(created_at: :desc)
 
         render json: @cards
       end
 
-      # GET /cards/1
       def show
         render json: @card
       end
 
-      # POST /cards
       def create
         @card = Card.new(card_params)
 
@@ -26,7 +30,6 @@ module Api
         end
       end
 
-      # PATCH/PUT /cards/1
       def update
         if @card.update(card_params)
           render json: @card
@@ -35,21 +38,19 @@ module Api
         end
       end
 
-      # DELETE /cards/1
       def destroy
         @card.destroy!
       end
 
       private
-        # Use callbacks to share common setup or constraints between actions.
-        def set_card
-          @card = Card.find(params[:id])
-        end
 
-        # Only allow a list of trusted parameters through.
-        def card_params
-          params.require(:card).permit(:title, :description)
-        end
+      def set_card
+        @card = Card.find(params[:id])
+      end
+
+      def card_params
+        params.require(:card).permit(:title, :description)
+      end
     end
   end
 end
