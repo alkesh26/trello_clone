@@ -1,1 +1,1 @@
-# trello_clone
+Trello Clone with React and Ruby and Rails
