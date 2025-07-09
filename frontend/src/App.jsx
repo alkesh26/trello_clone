@@ -1,13 +1,14 @@
 import './App.css'
-import Cards from '../components/Cards'
+import Board from './components/Board'
 
 function App() {
-
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello World</h1>
-      <Cards />
-    </>
+    <div className="min-h-screen bg-[url('https://source.unsplash.com/random')] bg-cover bg-center relative">
+      <div className="absolute inset-0 bg-black bg-opacity-30 z-0" />
+      <div className="relative z-10 min-h-screen flex flex-col items-center text-white">
+        <Board />
+      </div>
+    </div>
   )
 }
 
