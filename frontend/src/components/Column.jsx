@@ -1,6 +1,27 @@
+import { useState } from "react";
+
 export default function Column({ title }) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [cardText, setCardText] = useState('');
+
+  function handleClick() {
+    setIsAdding(true);
+  }
+
+  function handleSave() {
+    if(cardText.trim() === '') return;
+    setIsAdding(false);
+    console.log('will integrate API tomorrow');
+    setCardText('');
+  }
+
+  function handleCancel() {
+    setIsAdding(false);
+    setCardText('');
+  }
+
   return (
-    <div className="bg-red-200 bg-white/80 backdrop-blur-md rounded-xl shadow-lg w-80 flex-shrink-0 p-6 border border-slate-200 flex flex-col min-h-[180px]">
+    <div className="bg-red-200 bg-white/80 backdrop-blur-md rounded-xl shadow-lg w-80 flex-shrink-0 p-6 border border-slate-200 flex flex-col">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-bold text-lg text-slate-800">{title}</h2>
         {/* Placeholder for icons/menu */}
@@ -9,12 +30,42 @@ export default function Column({ title }) {
           <span className="cursor-pointer">⋯</span> */}
         </div>
       </div>
-      <div className="flex-1" />
       <div className="pt-2">
-        <button className="flex items-center gap-2 text-slate-600 text-sm hover:underline hover:text-blue-600 transition">
-          <span>＋ Add a card</span>
-          <span className="text-xs">🗂️</span>
-        </button>
+        {
+          isAdding ?
+            <div className="space-y-2">
+              <textarea
+                name="cardText"
+                className="w-full p-2 border border-slate-300 rounded text-sm"
+                placeholder="Enter card title"
+                value={cardText}
+                onChange={(e) => setCardText(e.target.value)}
+                autoFocus
+              />
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSave}
+                  className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm"
+                >
+                  Add card
+                </button>
+                <button
+                  onClick={handleCancel}
+                  className="text-slate-500 text-sm hover:underline"
+                >
+                  X
+                </button>
+              </div>
+            </div>
+          :
+          <button
+            onClick={handleClick}
+            className="flex items-center gap-2 text-slate-600 text-sm hover:underline hover:text-blue-600 transition"
+          >
+            <span>＋ Add a card</span>
+            <span className="text-xs">🗂️</span>
+          </button>
+        }
       </div>
     </div>
   );
