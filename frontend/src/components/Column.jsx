@@ -5,8 +5,8 @@ export default function Column({ title }) {
         <h2 className="font-bold text-lg text-slate-800">{title}</h2>
         {/* Placeholder for icons/menu */}
         <div className="flex space-x-2 text-slate-400">
-          <span className="cursor-pointer">↔️</span>
-          <span className="cursor-pointer">⋯</span>
+          {/* <span className="cursor-pointer">↔️</span>
+          <span className="cursor-pointer">⋯</span> */}
         </div>
       </div>
       <div className="flex-1" />
