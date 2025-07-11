@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createCardAPI } from "../api/card"
 
 export default function Column({ title }) {
   const [isAdding, setIsAdding] = useState(false);
   const [cardText, setCardText] = useState('');
+  const [shouldCreate, setShouldCreate] = useState(false);
 
   function handleClick() {
     setIsAdding(true);
@@ -10,10 +12,22 @@ export default function Column({ title }) {
 
   function handleSave() {
     if(cardText.trim() === '') return;
+    setShouldCreate(true);
     setIsAdding(false);
-    console.log('will integrate API tomorrow');
-    setCardText('');
   }
+
+  useEffect(() => {
+    if(!shouldCreate || cardText.trim() === '') return;
+
+    const createCard = async () => {
+      await createCardAPI({title: cardText, status: title})
+
+      setShouldCreate(false);
+      setCardText('');
+    };
+
+    createCard();
+  }, [shouldCreate])
 
   function handleCancel() {
     setIsAdding(false);
