@@ -11,7 +11,7 @@ module Api
       before_action :set_card, only: %i[show update destroy]
 
       def index
-        @cards = Card.order(created_at: :desc)
+        @cards = Card.order(created_at: :asc)
 
         render json: @cards
       end
