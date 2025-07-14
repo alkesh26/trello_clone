@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createCardAPI } from "../api/card"
 
-export default function Column({ title, cards = [] }) {
+export default function Column({ title, cards = [], onCardCreated }) {
   const [isAdding, setIsAdding] = useState(false);
   const [cardText, setCardText] = useState('');
   const [shouldCreate, setShouldCreate] = useState(false);
@@ -27,6 +27,7 @@ export default function Column({ title, cards = [] }) {
     };
 
     createCard();
+    onCardCreated();
   }, [shouldCreate])
 
   function handleCancel() {

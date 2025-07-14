@@ -6,12 +6,12 @@ import { groupCardsByStatus } from "../utils/cardsHelper"
 export default function Board() {
   const [cards, setCards] = useState({});
 
-  useEffect(() => {
-    const fetchCards = async () => {
-      const response = await getCardsAPI();
-      setCards(groupCardsByStatus(response));
-    };
+  const fetchCards = async () => {
+    const response = await getCardsAPI();
+    setCards(groupCardsByStatus(response));
+  };
 
+  useEffect(() => {
     fetchCards();
   }, [])
 
@@ -26,9 +26,9 @@ export default function Board() {
           </header>
 
           <div className="flex overflow-x-auto space-x-4 sm:space-x-8 pb-4">
-            <Column title="To Do" cards={cards['To Do']}/>
-            <Column title="Doing" cards={cards['Doing']}/>
-            <Column title="Done" cards={cards['Done']}/>
+            <Column title="To Do" cards={cards['To Do']} onCardCreated={fetchCards}/>
+            <Column title="Doing" cards={cards['Doing']} onCardCreated={fetchCards}/>
+            <Column title="Done" cards={cards['Done']} onCardCreated={fetchCards}/>
           </div>
         </div>
       </div>
