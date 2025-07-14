@@ -19,3 +19,13 @@ export async function getCardsAPI() {
     return null;
   }
 }
+
+export async function updateCardAPI(draggableId, body) {
+  try {
+    const response = await api.put('/cards/' + draggableId, {card: body});
+    return response.data;
+  } catch (error) {
+    // add a sticky note to display the error
+    return null;
+  }
+}
