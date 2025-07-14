@@ -24,10 +24,10 @@ export default function Column({ title, cards = [], onCardCreated }) {
 
       setShouldCreate(false);
       setCardText('');
+      onCardCreated();
     };
 
     createCard();
-    onCardCreated();
   }, [shouldCreate])
 
   function handleCancel() {
