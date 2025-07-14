@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createCardAPI } from "../api/card"
 
-export default function Column({ title }) {
+export default function Column({ title, cards = [] }) {
   const [isAdding, setIsAdding] = useState(false);
   const [cardText, setCardText] = useState('');
   const [shouldCreate, setShouldCreate] = useState(false);
@@ -44,6 +44,21 @@ export default function Column({ title }) {
           <span className="cursor-pointer">⋯</span> */}
         </div>
       </div>
+
+      {/* List of existing cards */}
+      <div className="flex-1 space-y-2 overflow-y-auto">
+        { cards.length > 0 &&
+            cards.map((card) => (
+              <div
+                key={card.id}
+                className="bg-white p-3 rounded shadow text-sm text-slate-700"
+              >
+                {card.title}
+              </div>
+            ))
+        }
+      </div>
+
       <div className="pt-2">
         {
           isAdding ?
