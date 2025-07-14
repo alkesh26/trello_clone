@@ -1,19 +1,7 @@
 import { useEffect, useState } from 'react'
 import Column from './Column'
 import { getCardsAPI } from "../api/card"
-
-function filter_by_cards_status(cards) {
-  return cards.reduce((hash, card) => {
-    if (card.status === null || card.status === '') return hash;
-
-    if (!hash[card.status]) {
-      hash[card.status] = [];
-    }
-
-    hash[card.status].push(card);
-    return hash;
-  }, {});
-}
+import { groupCardsByStatus } from "../utils/cardsHelper"
 
 export default function Board() {
   const [cards, setCards] = useState({});
@@ -21,7 +9,7 @@ export default function Board() {
   useEffect(() => {
     const fetchCards = async () => {
       const response = await getCardsAPI();
-      setCards(filter_by_cards_status(response));
+      setCards(groupCardsByStatus(response));
     };
 
     fetchCards();
