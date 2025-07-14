@@ -1,6 +1,32 @@
+import { useEffect, useState } from 'react'
 import Column from './Column'
+import { getCardsAPI } from "../api/card"
+
+function filter_by_cards_status(cards) {
+  return cards.reduce((hash, card) => {
+    if (card.status === null || card.status === '') return hash;
+
+    if (!hash[card.status]) {
+      hash[card.status] = [];
+    }
+
+    hash[card.status].push(card);
+    return hash;
+  }, {});
+}
 
 export default function Board() {
+  const [cards, setCards] = useState({});
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      const response = await getCardsAPI();
+      setCards(filter_by_cards_status(response));
+    };
+
+    fetchCards();
+  }, [])
+
   return (
     <div className="min-h-screen bg-cover bg-center relative">
       <div className="absolute inset-0 bg-black bg-opacity-30 z-0" />
@@ -12,9 +38,9 @@ export default function Board() {
           </header>
 
           <div className="flex overflow-x-auto space-x-4 sm:space-x-8 pb-4">
-            <Column title="To Do" />
-            <Column title="Doing" />
-            <Column title="Done" />
+            <Column title="To Do" cards={cards['To Do']}/>
+            <Column title="Doing" cards={cards['Doing']}/>
+            <Column title="Done" cards={cards['Done']}/>
           </div>
         </div>
       </div>
