@@ -9,3 +9,13 @@ export async function createCardAPI(body) {
     return null;
   }
 }
+
+export async function getCardsAPI() {
+  try {
+    const response = await api.get('/cards');
+    return response.data;
+  } catch (error) {
+    // add a sticky note to display the error
+    return null;
+  }
+}
