@@ -1,17 +1,22 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 import Board from './components/Board'
+import Profile from './components/Profile'
 
 function App() {
   return (
-    <div className="min-h-screen bg-cover bg-center relative">
-      <div className="absolute inset-0 bg-black bg-opacity-30 z-0" />
-      <div className="relative z-10 flex flex-col">
-        <div className="overflow-auto h-screen w-screen">
-          <Board />
-        </div>
-      </div>
-    </div>
-  )
+    <Router>
+      <nav className="p-4 bg-gray-100 text-right">
+        <Link to="/" className="mr-4 text-blue-600">Board</Link>
+        <Link to="/profile" className="text-blue-600">Profile</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Board />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App
